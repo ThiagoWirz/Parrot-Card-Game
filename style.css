@@ -1,0 +1,45 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color: #EEF9BF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo{
+    width: 540px;
+    height: 63px;
+    margin-top: 40px;
+    color: #75B79E;
+    font-size: 56px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.mesa{
+    display: flex;
+    gap: 34px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 47px;
+    position: relative;
+    width: 60%;
+}
+
+.card{
+    width: 117px;
+    height: 146px;
+    background-color: #A7E9AF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.front img{
+    height: 100px;
+    width: 100px;
+}
