@@ -17,12 +17,10 @@ body{
     letter-spacing: -0.004em;
 }
 .mesa{
-    display: flex;
-    gap: 34px;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-gap: 34px;
     margin-top: 47px;
-    width: 60%;
+    
 }
 
 .card{
@@ -63,4 +61,12 @@ img{
     margin-top: 24px;
     height: 100px;
     width: 100px;
+}
+
+.disabled{
+    pointer-events: none;
+}
+.point{
+    transform: rotateY(180deg);
+    pointer-events: none;
 }
