@@ -70,3 +70,8 @@ img{
     transform: rotateY(180deg);
     pointer-events: none;
 }
+.tempo{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}

@@ -55,6 +55,10 @@
 </div>
 </il>`]*/
 let cartasSelecionadas = [];
+let moves = 0;
+let seg = 0;
+let idInterval;
+
 colocarMesa()
 function colocarMesa(){
     let deck = []
@@ -70,6 +74,7 @@ function colocarMesa(){
     }
     let QuantidadeDeCartas = prompt("Escolha um numero par entre 4 e 14 para o jogo.");
     const mesa = document.querySelector("ul");
+    mesa.innerHTML = "";
     let baralho= [] 
     if(QuantidadeDeCartas >= 4 && QuantidadeDeCartas <= 14 && QuantidadeDeCartas%2 == 0){
         mesa.style.gridTemplateColumns = `repeat(${QuantidadeDeCartas/2}, 1fr)`;
@@ -86,21 +91,20 @@ function colocarMesa(){
     else{
         colocarMesa();
     }
+    idInterval = setInterval(tempo, 1000);
+    
 }
 function comparador() { 
 	return Math.random() - 0.5; 
 }
 
 function select(card){
-    
+    moves++;
     card.classList.add("selected");
     card.classList.add("disabled");
     cartasSelecionadas.push(card);
     if(cartasSelecionadas.length === 2){
-        let todasCartas = document.querySelectorAll(".card")
-        for(let i = 0; i < todasCartas.length; i++){
-            todasCartas[i].classList.add("disabled")
-        }
+        desabilitarCartas();
         
         
         if(cartasSelecionadas[0].innerHTML === cartasSelecionadas[1].innerHTML){
@@ -108,38 +112,65 @@ function select(card){
         }
         
         else{
-            cartasDiferentes();
-            console.log("teste");
+            setTimeout(cartasDiferentes,1500);
         }
+    }
+    let points = document.querySelectorAll(".point");
+    let todasCartas = document.querySelectorAll(".card"); 
+    if(points.length === todasCartas.length){
+        setTimeout(gameover,500);
     }
         
     }
 
 function cartasIguais(){
-    let todasCartas = document.querySelectorAll(".card");
-    for(let i = 0; i < todasCartas.length; i++){
-        todasCartas[i].classList.remove("disabled")
-    }
+    habilitarCartas();
     cartasSelecionadas[0].classList.add("point");
     cartasSelecionadas[1].classList.add("point");
-    cartasSelecionadas[0].classList.remove("selected", "disabled");
-    cartasSelecionadas[1].classList.remove("selected", "disabled");
+    cartasSelecionadas[0].classList.remove("selected");
+    cartasSelecionadas[1].classList.remove("selected");
     cartasSelecionadas = [];
 }
 
 function cartasDiferentes(){
-    setTimeout(unselected,1500);
+   habilitarCartas();
+    cartasSelecionadas[0].classList.remove("selected");
+    cartasSelecionadas[1].classList.remove("selected");
+    cartasSelecionadas = [];
    
 }
-function unselected(){
+
+
+
+function habilitarCartas (){
     let todasCartas = document.querySelectorAll(".card")
         for(let i = 0; i < todasCartas.length; i++){
             todasCartas[i].classList.remove("disabled")
         }
-    cartasSelecionadas[0].classList.remove("selected");
-    cartasSelecionadas[1].classList.remove("selected"); 
-    cartasSelecionadas = [];
 }
+
+function desabilitarCartas(){
+        let todasCartas = document.querySelectorAll(".card")
+        for(let i = 0; i < todasCartas.length; i++){
+            todasCartas[i].classList.add("disabled")
+        }
+}
+function gameover(){
+    alert(`Você ganhou em ${moves} jogadas! e em ${seg} segundos.`);
+    const resposta = prompt("Gostaria de reiniciar a partida?");
+    clearInterval(idInterval);
+    document.querySelector(".tempo").innerHTML = "0";
+    seg = 0;
+    if(resposta === "sim"){
+        colocarMesa();
+    }
+}
+
+function tempo(){
+    seg++;
+    document.querySelector(".tempo").innerHTML = seg
+}
+
 
 /*function checkcard(){
     if(cartasSelecionadas[0] !== cartasSelecionadas[1]){
