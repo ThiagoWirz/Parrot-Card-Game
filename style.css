@@ -6,6 +6,8 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 .titulo{
@@ -15,6 +17,8 @@ body{
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: -0.004em;
+    
+    text-align: center;
 }
 .mesa{
     display: grid;
@@ -74,4 +78,21 @@ img{
     position: absolute;
     top: 30px;
     right: 30px;
+}
+
+
+@media (max-width: 1024px){
+    .mesa{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+
+@media (max-width: 614px){
+    .mesa{
+        display: flex;
+        flex-direction: column;
+    }
 }

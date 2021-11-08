@@ -1,81 +1,30 @@
-/*const deck = [`<il class="card" data-identifier="card" onclick ="select(this)">
-<div class="front-face" identifier="front-face">
-    <img src="assets/front.png" alt="">  
-</div>
-<div class="back-face" identifier="back-face">
-    <img src="assets/bobrossparrot.gif">
-</div>
-</il>`,
-`<il class="card" data-identifier="card" onclick ="select(this)">
-<div class="front-face" identifier="front-face">
-    <img src="assets/front.png" alt="">  
-</div>
-<div class="back-face" identifier="back-face">
-    <img src="assets/explodyparrot.gif">
-</div>
-</il>`,
-`<il class="card" data-identifier="card" onclick ="select(this)">
-<div class="front-face" identifier="front-face">
-    <img src="assets/front.png" alt="">  
-</div>
-<div class="back-face" identifier="back-face">
-    <img src="assets/fiestaparrot.gif">
-</div>
-</il>`,
-`<il class="card" data-identifier="card" onclick ="select(this)">
-<div class="front-face" identifier="front-face">
-    <img src="assets/front.png" alt="">  
-</div>
-<div class="back-face" identifier="back-face">
-    <img src="assets/metalparrot.gif">
-</div>
-</il>`,
-`<il class="card" data-identifier="card" onclick ="select(this)">
-<div class="front-face" identifier="front-face">
-    <img src="assets/front.png" alt="">  
-</div>
-<div class="back-face" identifier="back-face">
-    <img src="assets/revertitparrot.gif">
-</div>
-</il>`,
-`<il class="card" data-identifier="card" onclick ="select(this)">
-<div class="front-face" identifier="front-face">
-    <img src="assets/front.png" alt="">  
-</div>
-<div class="back-face" identifier="back-face">
-    <img src="assets/tripletsparrot.gif">
-</div>
-</il>`,
-`<il class="card" data-identifier="card" onclick ="select(this)">
-<div class="front-face" identifier="front-face">
-    <img src="assets/front.png" alt="">  
-</div>
-<div class="back-face" identifier="back-face">
-    <img src="assets/unicornparrot.gif">
-</div>
-</il>`]*/
 let cartasSelecionadas = [];
 let moves = 0;
 let seg = 0;
 let idInterval;
 
 colocarMesa()
+
+
 function colocarMesa(){
-    let deck = []
+    let deck = [];
     for(let x = 0; x < 7; x++){
         deck.push(`<il class="card" data-identifier="card" onclick ="select(this)">
         <div class="front-face" identifier="front-face">
             <img src="assets/front.png" alt="">  
         </div>
         <div class="back-face" identifier="back-face">
-            <img src="assets/parrot${x}.gif">
+            <img src="assets/miajuda${x}.gif">
         </div>
-        </il>`)
+        </il>`);
     }
     let QuantidadeDeCartas = prompt("Escolha um numero par entre 4 e 14 para o jogo.");
     const mesa = document.querySelector("ul");
+    document.querySelector(".tempo").innerHTML = "Seu tempo: 0";
     mesa.innerHTML = "";
-    let baralho= [] 
+    moves = 0;
+    seg = 0;
+    let baralho= [];
     if(QuantidadeDeCartas >= 4 && QuantidadeDeCartas <= 14 && QuantidadeDeCartas%2 == 0){
         mesa.style.gridTemplateColumns = `repeat(${QuantidadeDeCartas/2}, 1fr)`;
 
@@ -83,20 +32,22 @@ function colocarMesa(){
           baralho.push(deck[i]);
           baralho.push(deck[i]);
         }
-        baralho.sort(comparador);
+        baralho.sort(shuffle);
         for(let j = 0; j < QuantidadeDeCartas; j++){
         mesa.innerHTML += baralho[j];
         }
+        idInterval = setInterval(tempo, 1000);
     }
     else{
         colocarMesa();
     }
-    idInterval = setInterval(tempo, 1000);
-    
 }
-function comparador() { 
+
+
+function shuffle() { 
 	return Math.random() - 0.5; 
 }
+
 
 function select(card){
     moves++;
@@ -105,8 +56,6 @@ function select(card){
     cartasSelecionadas.push(card);
     if(cartasSelecionadas.length === 2){
         desabilitarCartas();
-        
-        
         if(cartasSelecionadas[0].innerHTML === cartasSelecionadas[1].innerHTML){
             cartasIguais();
         }
@@ -119,9 +68,9 @@ function select(card){
     let todasCartas = document.querySelectorAll(".card"); 
     if(points.length === todasCartas.length){
         setTimeout(gameover,500);
+    } 
     }
-        
-    }
+
 
 function cartasIguais(){
     habilitarCartas();
@@ -132,6 +81,7 @@ function cartasIguais(){
     cartasSelecionadas = [];
 }
 
+
 function cartasDiferentes(){
    habilitarCartas();
     cartasSelecionadas[0].classList.remove("selected");
@@ -141,44 +91,38 @@ function cartasDiferentes(){
 }
 
 
-
 function habilitarCartas (){
-    let todasCartas = document.querySelectorAll(".card")
+    let todasCartas = document.querySelectorAll(".card");
         for(let i = 0; i < todasCartas.length; i++){
-            todasCartas[i].classList.remove("disabled")
+            todasCartas[i].classList.remove("disabled");
         }
 }
+
 
 function desabilitarCartas(){
-        let todasCartas = document.querySelectorAll(".card")
+        let todasCartas = document.querySelectorAll(".card");
         for(let i = 0; i < todasCartas.length; i++){
-            todasCartas[i].classList.add("disabled")
+            todasCartas[i].classList.add("disabled");
         }
 }
+
+
 function gameover(){
     alert(`Você ganhou em ${moves} jogadas! e em ${seg} segundos.`);
-    const resposta = prompt("Gostaria de reiniciar a partida?");
+    let resposta = prompt("Gostaria de reiniciar a partida?");
     clearInterval(idInterval);
-    document.querySelector(".tempo").innerHTML = "0";
-    seg = 0;
-    if(resposta === "sim"){
+    if(resposta.toLowerCase() === "sim"){
         colocarMesa();
     }
 }
 
+
 function tempo(){
     seg++;
-    document.querySelector(".tempo").innerHTML = seg
-}
-
-
-/*function checkcard(){
-    if(cartasSelecionadas[0] !== cartasSelecionadas[1]){
-        setTimeout(() =>  {},1000)
-        
+    if(seg !== 1){
+    document.querySelector(".tempo").innerHTML =  `Seu tempo: ${seg} segundos`;
     }
     else{
-        console.log(cartasSelecionadas);
+        document.querySelector(".tempo").innerHTML =  `Seu tempo: ${seg} segundo`;
     }
-    cartasSelecionadas = [];
-}*/
+}
