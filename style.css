@@ -16,15 +16,13 @@ body{
     font-size: 56px;
     text-transform: uppercase;
     font-weight: 700;
-    letter-spacing: -0.004em;
-    
+    letter-spacing: -0.004em; 
     text-align: center;
 }
 .mesa{
     display: grid;
     grid-gap: 34px;
     margin-top: 47px;
-    
 }
 
 .card{
@@ -37,13 +35,9 @@ body{
     border: 1px solid #99CEA8;
     border-radius: 5px;
     position: relative;
-
-
     perspective: 1000px;
     transition: all 0.5s;
     transform-style: preserve-3d;
-
-    
 }
 
 .card.selected{
