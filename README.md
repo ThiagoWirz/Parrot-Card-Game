@@ -6,8 +6,8 @@ Demo link: https://parrot-card-game-liart.vercel.app/
 
 ## About
 
-- The game starts asking how many cards do you want to play with beetwen 4 and 14 you can only pick even numbers
-- The game has a counter for timer and moves
+- The game starts asking how many cards do you want to play with. You can pick even numbers beetwen 4 and 14
+- The game has a counter for time and moves
 - Memory card game logic
 
 ## Techonologies
