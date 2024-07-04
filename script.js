@@ -7,7 +7,7 @@ colocarMesa()
 
 
 function colocarMesa(){
-    let deck = [];
+    const deck = [];
     for(let x = 0; x < 7; x++){
         deck.push(`<il class="card" data-identifier="card" onclick ="select(this)">
         <div class="front-face" identifier="front-face">
